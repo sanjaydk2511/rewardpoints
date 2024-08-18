@@ -1,0 +1,59 @@
+@charset "ISO-8859-1";
+
+  /* Basic styling for the table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    
+  }
+  
+  .table2 {
+    width: 30%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  th, td {
+    border: 1px solid #dddddd;
+    padding: 5px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: Black;
+    color: white;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  input[type="number"]{
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+  
+   #amount {
+            display: none; /* Initially hidden */
+        }
+   #rewardSave{
+         display: none; /* Initially hidden */
+   }
+   .input-container {
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Optional: space between input and button */
+        }
+
+    	a{
+    	 color :white;
+    	}
+    	a:hover{
+    		color:white;
+    		text-decoration : none;
+    		
+    	}
+ 
+        .btn-primary1{color:#fff;background-color:#007bff;border-color:#007bff}
+        .btn-primary1:hover{color:#fff;background-color:#0069d9;border-color:#0062cc}
