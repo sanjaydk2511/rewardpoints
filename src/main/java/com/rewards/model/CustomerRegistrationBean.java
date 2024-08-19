@@ -72,7 +72,6 @@ public class CustomerRegistrationBean {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
 	
 
 	public String getConfirm_password() {

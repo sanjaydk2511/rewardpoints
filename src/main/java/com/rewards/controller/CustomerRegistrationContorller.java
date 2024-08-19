@@ -3,6 +3,7 @@ package com.rewards.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,7 @@ public class CustomerRegistrationContorller {
 
 	@Autowired
 	CustomerRegistrationService service;
+	
 	private static Logger logger = LoggerFactory.getLogger(CustomerDashboardController.class);
 	
 	@RequestMapping("/register")
@@ -28,9 +30,25 @@ public class CustomerRegistrationContorller {
 	@PostMapping("/custmerRegistrationSave")
 	public String custmerRegistrationSave(CustomerRegistrationBean customerBean, RedirectAttributes redirectAttributes,Model model) {
 		
-		logger.debug("In BCMembersController First name= " +customerBean.getCust_id());
-		service.saveOrUpdateBCSystem(customerBean);
-		return "redirect:/login";
+		logger.debug("In custmerRegistrationSave cust id = " +customerBean.getCust_id());
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+	     
+	     // Define the password
+	     String passowrd = customerBean.getPassword();
+	     String confirmPassowrd = customerBean.getConfirm_password();
+	     
+	     // Encrypt  password and confirm password
+	     String encodedPassword = encoder.encode(passowrd);
+	     String encodedConfirmPassword = encoder.encode(confirmPassowrd);
+	     
+	     // Output the encoded password
+	     //logger.debug("Encoded Password: " + encodedPassword); //necessary for debugging purpose   
+	     
+	     customerBean.setPassword(encodedPassword);
+	     customerBean.setConfirm_password(encodedConfirmPassword);
+	     
+		service.saveOrUpdateCustomer(customerBean);
+		return "redirect:/customerdashboard";
 		
 	}
 }

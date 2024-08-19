@@ -47,14 +47,6 @@ public class CustomerDashboardService {
 		return false;
 	}
 	
-	/*
-	 * public boolean updateCustomer(CustomerRegistrationBean customer) {
-	 * CustomerRegistrationBean updatedObj = repository.updateCustomer(customer); if
-	 * (getCustomerById(updatedObj.getCust_id()) != null) {
-	 * logger.debug("Record saved/updated with Id= " + updatedObj.getCust_id());
-	 * return true; } return false; }
-	 */
-
 	public boolean deleteCustomer(Long cust_id) {
 
 		repository.deleteById(cust_id); // original code - repo.deleteById(id);

@@ -20,10 +20,10 @@
                 alert("Passwords do not match.");
                 return false;
             }
-            /* if (password.length < 8) {
+            if (password.length < 8) {
                 alert("Password must be at least 8 characters long.");
                 return false;
-            } */
+            }
             return true;
         }
         
@@ -51,7 +51,7 @@
 	<div class="container">
 		<h1>Customer Registration</h1>
 		<form action="/custmerRegistrationSave" method="post" onsubmit="return validatePasswords()">
-
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			<div class="personal-info">
 				<div class="form-row">
 					<label for="cust_name">Customer Name<span class="required" >*</span></label> <input type="text" 
