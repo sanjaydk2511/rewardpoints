@@ -9,7 +9,6 @@ public class HomeController {
     
     @GetMapping("/login")
     public String home() {
-    	System.out.println("In home login");
         return "customerdashboard";
     }
 }

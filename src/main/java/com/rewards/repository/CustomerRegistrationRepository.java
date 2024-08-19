@@ -13,17 +13,4 @@ import com.rewards.model.CustomerRegistrationBean;
 
 @Repository
 public interface CustomerRegistrationRepository extends JpaRepository<CustomerRegistrationBean, Long> {
-	/*
-	 * @Modifying
-	 * 
-	 * @Query("UPDATE customer_registration SET cust_name = :cust_name, contact = :contact, email = :email, WHERE cust_id = :cust_id"
-	 * ) int updateCustomer(@Param("cust_id") Long cust_id,@Param("cust_name")
-	 * String cust_name, @Param("contact") String contact,@Param("email") String
-	 * email);
-	 */
-	//int updateCustomer(Long cust_id, String cust_name, String contact, String email);
-
-	//void updateCustomer(CustomerRegistrationBean customer);
-
-	//CustomerRegistrationBean updateCustomer(CustomerRegistrationBean customer);
 }

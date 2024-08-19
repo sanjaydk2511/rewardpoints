@@ -9,9 +9,7 @@ public class CustomerLoginContorller {
 
 	@RequestMapping("/")
 	public String customerLogin(Model model) {
-		System.out.println("In default login : customedashboard");
-		return "customerDashboard";
-		
+		System.out.println("In default login : homepage");
+		return "home";	
 	}
-	
 }

@@ -22,12 +22,6 @@ public class RewardPoints {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-	/*
-	 * @ManyToOne
-	 * 
-	 * @JoinColumn(name = "cust_id") private CustomerRegistrationBean customer;
-	 */
-
     @Column(name = "cust_id")
     private Long cust_id;
     

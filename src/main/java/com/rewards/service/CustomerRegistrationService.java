@@ -28,7 +28,7 @@ public class CustomerRegistrationService {
 	@Autowired
 	UserRepository userRepository;
 	
-	private static Logger logger = LoggerFactory.getLogger(CustomerRegistrationService2.class);
+	private static Logger logger = LoggerFactory.getLogger(CustomerRegistrationService.class);
 
 
 	public CustomerRegistrationBean getCustomerItemById(Long cust_id) {
@@ -41,7 +41,7 @@ public class CustomerRegistrationService {
 
 	    // Save or update the customer registration
 	    CustomerRegistrationBean bean = repository.save(register);
-	    //User userBean = userRepository.save(register);
+
 	    if (bean != null && getCustomerItemById(bean.getCust_id()) != null) {
 	        logger.debug("Record saved/updated with Id= " + bean.getCust_id());
 

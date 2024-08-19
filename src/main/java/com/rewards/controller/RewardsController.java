@@ -34,7 +34,6 @@ public class RewardsController {
 
 	@RequestMapping("/rewards")
 	public String bcSystem(Model model) {
-		// model.addAttribute("systemMember", new BCSystemBean());
 		return "RewardsHome";
 		
 	}
@@ -76,39 +75,6 @@ public class RewardsController {
 		return "redirect:/customerdashboard";
 	}
 
-	// Get reward points for a specific customer
-
-	/*
-	 * @GetMapping("/customer/{cust_id}") public ResponseEntity<List<RewardPoints>>
-	 * getRewardPointsByCustomer(Model model, @PathVariable Long cust_id) {
-	 * List<RewardPoints> rewardPoints =
-	 * rewardPointService.getRewardPointsByCustomer(cust_id);
-	 * //model.addAttribute("member", rewardPointService.getRewardItemById(cust_id);
-	 * 
-	 * if (rewardPoints.isEmpty()) { return ResponseEntity.notFound().build(); }
-	 * 
-	 * return ResponseEntity.ok(rewardPoints); }
-	 */
-	/*
-	 * @GetMapping("/customer/{cust_id}") public ResponseEntity<List<RewardPoints>>
-	 * getRewardPointsByCustomer(@PathVariable Long cust_id) { List<RewardPoints>
-	 * rewardPoints = rewardPointService.getRewardItemById(cust_id); if
-	 * (rewardPoints.isEmpty()) { return ResponseEntity.notFound().build(); } return
-	 * ResponseEntity.ok(rewardPoints); }
-	 */
-
-	// Get all reward points
-
-	/*
-	 * @GetMapping public ResponseEntity<List<RewardPoints>> getAllRewardPoints() {
-	 * List<RewardPoints> rewardPoints = rewardPointService.getAllRewardPoints();
-	 * return ResponseEntity.ok(rewardPoints); }
-	 */
-	/*
-	 * @GetMapping public RewardPoints getAllRewardPoints() { List<RewardPoints>
-	 * rewardPoints = rewardPointService.getAllRewardPoints(); return
-	 * ResponseEntity.ok(rewardPoints); }
-	 */
 
 	@GetMapping("/allrewards")
 	public String getAllRewardPoints(Model model, @ModelAttribute("message") String message) {
@@ -118,8 +84,6 @@ public class RewardsController {
 		} else {
 			logger.debug("From getAllRewardPoints : list is empty");
 		}
-
-		// model.addAttribute("message", message);
 		return "rewardReports";
 	}
 

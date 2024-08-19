@@ -25,7 +25,6 @@ public class CustomerDashboardService {
 
 		ArrayList<CustomerRegistrationBean> customerList = new ArrayList<CustomerRegistrationBean>();
 		repository.findAll().forEach(customers -> customerList.add(customers));
-		System.out.println("Customer list :" + customerList.size());
 		return customerList;
 	}
 

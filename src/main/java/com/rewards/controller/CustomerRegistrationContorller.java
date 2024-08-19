@@ -33,22 +33,18 @@ public class CustomerRegistrationContorller {
 		logger.debug("In custmerRegistrationSave cust id = " +customerBean.getCust_id());
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 	     
-	     // Define the password
 	     String passowrd = customerBean.getPassword();
 	     String confirmPassowrd = customerBean.getConfirm_password();
 	     
-	     // Encrypt  password and confirm password
 	     String encodedPassword = encoder.encode(passowrd);
 	     String encodedConfirmPassword = encoder.encode(confirmPassowrd);
 	     
-	     // Output the encoded password
-	     //logger.debug("Encoded Password: " + encodedPassword); //necessary for debugging purpose   
+	     logger.debug("Encoded Password: " + encodedPassword); //necessary for debugging purpose   
 	     
 	     customerBean.setPassword(encodedPassword);
 	     customerBean.setConfirm_password(encodedConfirmPassword);
 	     
 		service.saveOrUpdateCustomer(customerBean);
 		return "redirect:/customerdashboard";
-		
 	}
 }

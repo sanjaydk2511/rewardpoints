@@ -24,9 +24,6 @@ import java.util.List;
 @Controller
 public class RewardsReportContorller {
 
-	/*
-	 * @Autowired private CustomerDashboardService service;
-	 */
 	
 	@Autowired
 	private RewardPointService rewardPointService;

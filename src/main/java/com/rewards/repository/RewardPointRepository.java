@@ -12,14 +12,4 @@ import com.rewards.model.RewardPoints;
 @Repository
 public interface RewardPointRepository extends JpaRepository<RewardPoints, Long> {
 
-    // Find reward points by customer ID
-	/*
-	 * @Query("SELECT rp FROM RewardPoints rp WHERE rp.customer.id = :cust_id")
-	 * List<RewardPoints> findByCustomerId(@Param("cust_id") Long cust_id);
-	 * 
-	 * // Find all reward points
-	 * 
-	 * @Query("SELECT rp FROM RewardPoint rp") List<RewardPoints>
-	 * findAllRewardPoints();
-	 */
 }
