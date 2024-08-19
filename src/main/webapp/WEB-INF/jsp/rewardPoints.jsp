@@ -22,7 +22,7 @@
 
 			<div class="personal-info">
 				<div class="form-row">
-					<label for="cust_name">Amount<span class="required" >*</span></label> <input type="text"
+					<label for="cust_name">Product Amount<span class="required" >*</span></label> <input type="text"
 						id="amount" name="amount" tabindex="1" required="required"/>
 
 				</div>

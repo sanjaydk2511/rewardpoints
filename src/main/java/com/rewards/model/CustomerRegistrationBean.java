@@ -31,7 +31,7 @@ public class CustomerRegistrationBean {
 	private String password;
 	
 	@Column
-	private int confirm_password;
+	private String confirm_password;
 
 	public Long getCust_id() {
 		return cust_id;
@@ -73,11 +73,13 @@ public class CustomerRegistrationBean {
 		this.password = password;
 	}
 
-	public int getConfirm_password() {
+	
+
+	public String getConfirm_password() {
 		return confirm_password;
 	}
 
-	public void setConfirm_password(int confirm_password) {
+	public void setConfirm_password(String confirm_password) {
 		this.confirm_password = confirm_password;
 	}
 
