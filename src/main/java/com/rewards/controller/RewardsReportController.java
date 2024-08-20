@@ -3,6 +3,8 @@ package com.rewards.controller;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -11,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.rewards.exception.ReportGenerationException;
 import com.rewards.model.CustomerRegistrationBean;
 import com.rewards.model.RewardPoints;
 import com.rewards.service.CustomerDashboardService;
@@ -44,8 +47,12 @@ public class RewardsReportController {
     @Autowired
     private RewardPointService rewardPointService;
 
+    private static final Logger logger = LoggerFactory.getLogger(RewardsReportController.class);
+
     @GetMapping("/downloadRewardsReport")
     public ResponseEntity<byte[]> downloadExcel() throws IOException {
+    	
+    	try {
         List<RewardPoints> rewardsData = rewardPointService.getAllRewardPoints(); // Retrieve rewards points data from service
 
         // Create Excel workbook and sheet
@@ -87,5 +94,12 @@ public class RewardsReportController {
 
             return new ResponseEntity<>(outputStream.toByteArray(), headers, HttpStatus.OK);
         }
+    } catch (IOException e) {
+        logger.error("Error generating report: {}", e.getMessage());
+        throw new ReportGenerationException("Failed to generate the report due to an internal error.");
+    } catch (Exception e) {
+        logger.error("Unexpected error: {}", e.getMessage());
+        throw new ReportGenerationException("An unexpected error occurred while generating the report.");
     }
+}
 }

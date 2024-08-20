@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.rewards.exception.ResourceNotFoundException;
 import com.rewards.model.CustomerRegistrationBean;
 import com.rewards.service.CustomerDashboardService;
 
@@ -48,7 +49,8 @@ public class CustomerDashboardController {
         if (service.updateCustomer(cust_id)) {
             return new ResponseEntity<>("Update Success", HttpStatus.OK);
         }
-        return new ResponseEntity<>("Something went wrong..status not updated", HttpStatus.BAD_REQUEST);
+       // return new ResponseEntity<>("Something went wrong..status not updated", HttpStatus.BAD_REQUEST);
+        throw new ResourceNotFoundException("Customer with ID " + cust_id + " not found");
     }
 
     @GetMapping("/edit/{cust_id}")
@@ -58,7 +60,8 @@ public class CustomerDashboardController {
         if (customer != null) {
             return new ResponseEntity<>(customer, HttpStatus.OK);
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        //return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        throw new ResourceNotFoundException("Customer with ID " + cust_id + " not found");
     }
 
     @PostMapping("/edit")
@@ -76,6 +79,7 @@ public class CustomerDashboardController {
         if (service.deleteCustomer(cust_id)) {
             return new ResponseEntity<>("Delete Success", HttpStatus.OK);
         }
-        return new ResponseEntity<>("Delete Failure", HttpStatus.BAD_REQUEST);
+        //return new ResponseEntity<>("Delete Failure", HttpStatus.BAD_REQUEST);
+        throw new ResourceNotFoundException("Customer with ID " + cust_id + " not found");
     }
 }

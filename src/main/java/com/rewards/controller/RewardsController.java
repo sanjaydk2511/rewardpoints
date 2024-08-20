@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.rewards.exception.RewardPointsException;
 import com.rewards.model.CustomerRegistrationBean;
 import com.rewards.model.RewardPoints;
 import com.rewards.service.CustomerDashboardService;
@@ -35,11 +36,16 @@ public class RewardsController {
     @GetMapping("/calculatePoints/{cust_id}")
     public ResponseEntity<?> calculatePoints(@PathVariable Long cust_id) {
         logger.debug("Customer id : " + cust_id);
+        try {
         CustomerRegistrationBean customer = service.getCustomerById(cust_id);
         if (customer != null) {
             return ResponseEntity.ok(customer);
         } else {
             return ResponseEntity.notFound().build();
+        }
+        }catch (Exception e) {
+            logger.error("Error fetching customer details: {}", e.getMessage());
+            throw new RewardPointsException("Failed to retrieve customer details.");
         }
     }
 
@@ -49,7 +55,12 @@ public class RewardsController {
                                               @RequestBody RewardPoints rewardPoints) {
         logger.debug("In calculatePoints method : cust_id: " + cust_id);
 
-        if (cust_id != null) {
+        try {
+       
+        	if (cust_id == null || amount == null) {
+                throw new RewardPointsException("Invalid input: customer ID or amount is missing.");
+            }
+        	
             int points = rewardPointService.calculatePoints(amount);
             Map<String, Object> response = new HashMap<>();
             response.put("cust_id", cust_id);
@@ -60,18 +71,27 @@ public class RewardsController {
 
             rewardPointService.saveOrUpdateRewardPoints(rewardPoints, cust_id, response);
             return ResponseEntity.ok(response);
+        
+        } catch (Exception e) {
+            logger.error("Error calculating reward points: {}", e.getMessage());
+            throw new RewardPointsException("Failed to calculate reward points.");
         }
-        return ResponseEntity.badRequest().body("Invalid customer ID");
+        
     }
 
     @GetMapping("/allrewards")
     public ResponseEntity<?> getAllRewardPoints() {
+    	
+    	  try {
     	ArrayList<RewardPoints> rewards = rewardPointService.getAllRewardPoints();
         if (rewards != null && !rewards.isEmpty()) {
             return ResponseEntity.ok(rewards);
         } else {
             logger.debug("From getAllRewardPoints : list is empty");
             return ResponseEntity.noContent().build();
+        }} catch (Exception e) {
+            logger.error("Error fetching reward points: {}", e.getMessage());
+            throw new RewardPointsException("Failed to retrieve reward points.");
         }
     }
 }

@@ -3,6 +3,8 @@ package com.rewards.controller;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -11,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.rewards.exception.ReportGenerationException;
 import com.rewards.model.CustomerRegistrationBean;
 import com.rewards.service.CustomerDashboardService;
 import com.rewards.service.CustomerRegistrationService;
@@ -40,10 +43,14 @@ public class CustomerReportContorller {
 
     @Autowired
     private CustomerDashboardService service;
+    private static final Logger logger = LoggerFactory.getLogger(CustomerReportContorller.class);
 
+    
     @GetMapping("/downloadCustomerReports")
     public ResponseEntity<byte[]> downloadExcel() throws IOException {
-        List<CustomerRegistrationBean> customerData = service.getDashboard(); // Retrieve dashboard data from service
+        
+    	try {
+    	List<CustomerRegistrationBean> customerData = service.getDashboard(); // Retrieve dashboard data from service
 
         // Create Excel workbook and sheet
         try (Workbook workbook = new XSSFWorkbook()) {
@@ -78,6 +85,13 @@ public class CustomerReportContorller {
             headers.setContentDispositionFormData("attachment", "customer_report.xlsx");
 
             return new ResponseEntity<>(outputStream.toByteArray(), headers, HttpStatus.OK);
+        }
+    	}catch (IOException e) {
+            logger.error("Error generating report: {}", e.getMessage());
+            throw new ReportGenerationException("Failed to generate the report due to an internal error.");
+        } catch (Exception e) {
+            logger.error("Unexpected error: {}", e.getMessage());
+            throw new ReportGenerationException("An unexpected error occurred while generating the report.");
         }
     }
 }

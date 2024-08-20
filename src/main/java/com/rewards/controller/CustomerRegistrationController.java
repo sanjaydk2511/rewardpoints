@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.rewards.exception.RegistrationException;
 import com.rewards.model.CustomerRegistrationBean;
 import com.rewards.service.CustomerRegistrationService;
 
@@ -34,7 +35,7 @@ public class CustomerRegistrationController {
     @PostMapping("/customerRegistrationSave")
     public ResponseEntity<String> customerRegistrationSave(@RequestBody CustomerRegistrationBean customerBean) {
         logger.debug("In customerRegistrationSave cust id = " + customerBean.getCust_id());
-        
+        try {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         
         String password = customerBean.getPassword();
@@ -51,5 +52,9 @@ public class CustomerRegistrationController {
         service.saveOrUpdateCustomer(customerBean);
         
         return ResponseEntity.ok("Customer registered successfully");
+        }catch (Exception e) {
+            logger.error("Registration failed: {}", e.getMessage());
+            throw new RegistrationException("Registration failed due to an unexpected error");
+        }
     }
 }
