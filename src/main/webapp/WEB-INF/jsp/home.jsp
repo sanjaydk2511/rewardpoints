@@ -22,9 +22,9 @@
 
 <div class="">
 <br>
-	<h2>Welcome to Home : Quick Links</h2><br>
+	<h2>Welcome to Rewards Application Home : Quick Links</h2><br>
 	
-		<button type="button" class="btn-primary1"><a href="/register">Add New Customer</a></button>
+		<button type="button" class="btn-primary1"><a href="/register">New Customer Registration</a></button>
 		<button type="button" class="btn-primary1"><a href="/customerdashboard">Customer Dashboard</a></button>
 		<button type="button" class="btn-primary1"><a href="/allrewards">Reward Point Reports</a></button>
 		<button type="button" class="btn-primary1"><a href="/downloadRewardsReport">Download Reward Reports</a></button>

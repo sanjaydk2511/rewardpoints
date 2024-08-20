@@ -19,16 +19,31 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
 
-@Controller
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/reports")
 public class CustomerReportContorller {
 
-	@Autowired
-	private CustomerDashboardService service;
-	
-    @GetMapping("/downloadCustomerReport")
+    @Autowired
+    private CustomerDashboardService service;
+
+    @GetMapping("/downloadCustomerReports")
     public ResponseEntity<byte[]> downloadExcel() throws IOException {
         List<CustomerRegistrationBean> customerData = service.getDashboard(); // Retrieve dashboard data from service
-        		
 
         // Create Excel workbook and sheet
         try (Workbook workbook = new XSSFWorkbook()) {
@@ -36,11 +51,10 @@ public class CustomerReportContorller {
 
             // Create header row
             Row headerRow = sheet.createRow(0);
-            String[] columns = {"Customer Id", "Customer Name", "Contact","Email-id"}; // Example column names
+            String[] columns = {"Customer Id", "Customer Name", "Contact", "Email-id"}; // Example column names
             for (int i = 0; i < columns.length; i++) {
                 Cell cell = headerRow.createCell(i);
                 cell.setCellValue(columns[i]);
-                
             }
 
             // Create data rows

@@ -31,6 +31,7 @@ public class CustomerDashboardService {
 	public CustomerRegistrationBean getCustomerById(Long cust_id) {
 		 return repository.findById(cust_id).get();
 	}
+	
 	public boolean updateCustomer(Long cust_id) {
 		CustomerRegistrationBean customer = getCustomerById(cust_id);
 		
@@ -48,7 +49,7 @@ public class CustomerDashboardService {
 	
 	public boolean deleteCustomer(Long cust_id) {
 
-		repository.deleteById(cust_id); // original code - repo.deleteById(id);
+		repository.deleteById(cust_id);
 		logger.debug("Id " + cust_id + " deleted from the database");
 
 		if (repository.findById(cust_id) == null) { // original code
