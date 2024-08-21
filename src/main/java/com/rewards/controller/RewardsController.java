@@ -33,7 +33,7 @@ public class RewardsController {
         this.rewardPointService = rewardPointService;
     }
 
-    @GetMapping("/calculatePoints/{cust_id}")
+    @GetMapping("/getCustomerWithPoints/{cust_id}")
     public ResponseEntity<?> calculatePoints(@PathVariable Long cust_id) {
         logger.debug("Customer id : " + cust_id);
         try {
@@ -45,31 +45,48 @@ public class RewardsController {
         }
         }catch (Exception e) {
             logger.error("Error fetching customer details: {}", e.getMessage());
-            throw new RewardPointsException("Failed to retrieve customer details.");
+            throw new RewardPointsException("Failed to retrieve customer details. Record not found..");
         }
     }
 
-    @PostMapping("/calculateRewardPoints")
-    public ResponseEntity<?> calculatePoints(@RequestParam Long cust_id,
-                                              @RequestParam BigDecimal amount,
-                                              @RequestBody RewardPoints rewardPoints) {
+    @GetMapping("/calculateRewardPoints/{cust_id}/{amount}")
+    public ResponseEntity<?> calculatePoints(@PathVariable Long cust_id, @PathVariable BigDecimal amount) {
         logger.debug("In calculatePoints method : cust_id: " + cust_id);
 
         try {
-       
         	if (cust_id == null || amount == null) {
                 throw new RewardPointsException("Invalid input: customer ID or amount is missing.");
             }
-        	
             int points = rewardPointService.calculatePoints(amount);
+            return ResponseEntity.ok(points); 
+        
+        } catch (Exception e) {
+            logger.error("Error calculating reward points: {}", e.getMessage());
+            throw new RewardPointsException("Failed to calculate reward points.");
+        }
+        
+    }
+    
+    @PostMapping("/saveRewardPoints")
+    public ResponseEntity<?> savePoints(@RequestBody RewardPoints rewardPoints) {
+        logger.debug("In calculatePoints method : cust_id: " );
+
+        try {
+       
+        	if (rewardPoints.getCust_id() == null || rewardPoints.getAmount() == null) {
+                throw new RewardPointsException("Invalid input: customer ID or amount is missing.");
+            }
+        	
+            int points = rewardPointService.calculatePoints(rewardPoints.getAmount());
+            logger.debug("Calculated Amount and points : " +rewardPoints.getAmount() +" "+ points);
+            
             Map<String, Object> response = new HashMap<>();
-            response.put("cust_id", cust_id);
-            response.put("points", points);
-            response.put("amount", amount);
+            response.put("cust_id", rewardPoints.getCust_id());
+            response.put("amount", rewardPoints.getAmount());
 
             logger.debug("response : " + response);
 
-            rewardPointService.saveOrUpdateRewardPoints(rewardPoints, cust_id, response);
+            rewardPointService.saveOrUpdateRewardPoints(points,rewardPoints, rewardPoints.getCust_id(), response);
             return ResponseEntity.ok(response);
         
         } catch (Exception e) {

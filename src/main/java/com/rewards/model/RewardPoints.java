@@ -36,7 +36,6 @@ public class RewardPoints {
     
     @Column(nullable = false, precision = 19, scale = 4, name="amount")
     private BigDecimal amount;
-   
 
 	public Long getId() {
 		return id;
@@ -44,15 +43,6 @@ public class RewardPoints {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-
-	public Integer getPoints() {
-		return points;
-	}
-
-	public void setPoints(Object object) {
-		this.points = (Integer) object;
 	}
 
 	public Long getCust_id() {
@@ -63,10 +53,14 @@ public class RewardPoints {
 		this.cust_id = cust_id;
 	}
 
+	public Integer getPoints() {
+		return points;
+	}
+
 	public void setPoints(Integer points) {
 		this.points = points;
 	}
-	
+
 	public int getMonth() {
 		return month;
 	}
@@ -90,13 +84,7 @@ public class RewardPoints {
 	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
 	}
+   
 
-		@PrePersist
-	    @PreUpdate
-	    private void setCurrentMonthAndYear() {
-	        LocalDate now = LocalDate.now();
-	        this.month = now.getMonthValue();
-	        this.year = now.getYear();
-	    }
-    
+	
 }

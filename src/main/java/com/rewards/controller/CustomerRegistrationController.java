@@ -34,8 +34,10 @@ public class CustomerRegistrationController {
 
     @PostMapping("/customerRegistrationSave")
     public ResponseEntity<String> customerRegistrationSave(@RequestBody CustomerRegistrationBean customerBean) {
-        logger.debug("In customerRegistrationSave cust id = " + customerBean.getCust_id());
-        try {
+      
+    	logger.debug("In customerRegistrationSave cust id = " + customerBean.getCust_id());
+       
+    	try {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         
         String password = customerBean.getPassword();

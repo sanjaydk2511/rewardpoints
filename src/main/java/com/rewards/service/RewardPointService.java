@@ -38,9 +38,9 @@ public class RewardPointService {
         return points;
     }
     
-    public boolean saveOrUpdateRewardPoints(RewardPoints rewardPoints,Long cust_id, Map<String, Object> map) {
-		rewardPoints.setPoints(map.get("points"));
-		rewardPoints.setAmount((BigDecimal) map.get("amount"));
+    public boolean saveOrUpdateRewardPoints(int points, RewardPoints rewardPoints,Long cust_id, Map<String, Object> map) {
+		rewardPoints.setPoints(points);
+	    rewardPoints.setAmount((BigDecimal) map.get("amount"));
     	rewardPoints.setCust_id(cust_id);
     	
 		RewardPoints bean = rewardPointRepository.save(rewardPoints);

@@ -1,6 +1,7 @@
 package com.rewards.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,6 +42,17 @@ public class CustomerDashboardController {
         return new ResponseEntity<>(customers, HttpStatus.OK);
     }
     
+   
+    @GetMapping("/{cust_id}")
+    public ResponseEntity<CustomerRegistrationBean> getCustomerById(@PathVariable Long cust_id) {
+    	logger.debug("In getCustomerById method: id = " + cust_id);
+        Optional<CustomerRegistrationBean> employee = service.findCustomerById(cust_id);
+        if (employee.isPresent()) {
+            return ResponseEntity.ok(employee.get());
+        } 
+        throw new ResourceNotFoundException("Customer with ID " + cust_id + " not found");
+    }
+    
 
     @PutMapping("/updateCustomer/{cust_id}")
     public ResponseEntity<String> updateCustomer(@PathVariable Long cust_id) {
@@ -79,7 +91,6 @@ public class CustomerDashboardController {
         if (service.deleteCustomer(cust_id)) {
             return new ResponseEntity<>("Delete Success", HttpStatus.OK);
         }
-        //return new ResponseEntity<>("Delete Failure", HttpStatus.BAD_REQUEST);
         throw new ResourceNotFoundException("Customer with ID " + cust_id + " not found");
     }
 }

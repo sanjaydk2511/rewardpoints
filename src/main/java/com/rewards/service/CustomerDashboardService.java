@@ -3,6 +3,7 @@ package com.rewards.service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -32,6 +33,10 @@ public class CustomerDashboardService {
 		 return repository.findById(cust_id).get();
 	}
 	
+	 public Optional<CustomerRegistrationBean> findCustomerById(Long id) {
+	        return repository.findById(id);
+	    }
+	 
 	public boolean updateCustomer(Long cust_id) {
 		CustomerRegistrationBean customer = getCustomerById(cust_id);
 		
