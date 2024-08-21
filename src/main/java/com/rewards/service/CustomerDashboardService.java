@@ -22,6 +22,7 @@ public class CustomerDashboardService {
 
 	private static Logger logger = LoggerFactory.getLogger(CustomerDashboardService.class);
 
+	//get all customers for customer dashboard
 	public List<CustomerRegistrationBean> getDashboard() {
 
 		ArrayList<CustomerRegistrationBean> customerList = new ArrayList<CustomerRegistrationBean>();
@@ -36,13 +37,15 @@ public class CustomerDashboardService {
 	 public Optional<CustomerRegistrationBean> findCustomerById(Long id) {
 	        return repository.findById(id);
 	    }
-	 
+	
+	 //Update Customer
 	public boolean updateCustomer(Long cust_id) {
 		CustomerRegistrationBean customer = getCustomerById(cust_id);
 		
 		return saveOrUpdateCustomer(customer);
 	}
 
+	//Save or Update Customer
 	public boolean saveOrUpdateCustomer(CustomerRegistrationBean customer) {
 		CustomerRegistrationBean updatedObj = repository.save(customer);
 		if (getCustomerById(updatedObj.getCust_id()) != null) {
@@ -52,6 +55,7 @@ public class CustomerDashboardService {
 		return false;
 	}
 	
+	//delete specific customer
 	public boolean deleteCustomer(Long cust_id) {
 
 		repository.deleteById(cust_id);

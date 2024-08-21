@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/rewards")
@@ -33,21 +34,7 @@ public class RewardsController {
         this.rewardPointService = rewardPointService;
     }
 
-    @GetMapping("/getCustomerWithPoints/{cust_id}")
-    public ResponseEntity<?> calculatePoints(@PathVariable Long cust_id) {
-        logger.debug("Customer id : " + cust_id);
-        try {
-        CustomerRegistrationBean customer = service.getCustomerById(cust_id);
-        if (customer != null) {
-            return ResponseEntity.ok(customer);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-        }catch (Exception e) {
-            logger.error("Error fetching customer details: {}", e.getMessage());
-            throw new RewardPointsException("Failed to retrieve customer details. Record not found..");
-        }
-    }
+
 
     @GetMapping("/calculateRewardPoints/{cust_id}/{amount}")
     public ResponseEntity<?> calculatePoints(@PathVariable Long cust_id, @PathVariable BigDecimal amount) {
@@ -94,6 +81,22 @@ public class RewardsController {
             throw new RewardPointsException("Failed to calculate reward points.");
         }
         
+    }
+    
+    @GetMapping("/getCustomerRewardPoints/{cust_id}")
+    public ResponseEntity<?> getCustomerRewardPoints(@PathVariable Long cust_id) {
+        logger.debug("Customer id : " + cust_id);
+        try {
+        	Optional<RewardPoints> rewards = rewardPointService.getRewardItemById(cust_id);
+            if (rewards != null) {
+                return ResponseEntity.ok(rewards);
+            } else {
+                logger.debug("From getCustomerRewardPoints");
+                return ResponseEntity.noContent().build();
+            }} catch (Exception e) {
+                logger.error("Error fetching reward points: {}", e.getMessage());
+                throw new RewardPointsException("Failed to retrieve reward points.");
+            }
     }
 
     @GetMapping("/allrewards")

@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.transaction.Transaction;
 
@@ -23,7 +24,7 @@ public class RewardPointService {
 	  @Autowired 
 	  private RewardPointRepository rewardPointRepository;
 	 
-
+	  //calculate reward points
     public int calculatePoints(BigDecimal amount) {
         int points = 0;
         if (amount.compareTo(BigDecimal.valueOf(100)) > 0) {
@@ -38,6 +39,7 @@ public class RewardPointService {
         return points;
     }
     
+    //calculate and save reward points
     public boolean saveOrUpdateRewardPoints(int points, RewardPoints rewardPoints,Long cust_id, Map<String, Object> map) {
 		rewardPoints.setPoints(points);
 	    rewardPoints.setAmount((BigDecimal) map.get("amount"));
@@ -50,31 +52,18 @@ public class RewardPointService {
 		}
 		return false;
 	}
-
-	public RewardPoints getRewardItemById(Long cust_id) {
-		return rewardPointRepository.findById(cust_id).get(); 
-	}
     
+    // Get reward points for a specific customer public 
+	public Optional<RewardPoints> getRewardItemById(Long cust_id) {
+		return rewardPointRepository.findById(cust_id); 
+	}
+   
 	
-	
-	/*
-	 * // Get reward points for a specific customer public ArrayList<RewardPoints>
-	 * getRewardPointsByCustomer(Long cust_id) { return
-	 * rewardPointRepository.findByCustomerId(cust_id);; }
-	 */
 	// Get all reward points
 	public ArrayList<RewardPoints> getAllRewardPoints() {
 		ArrayList<RewardPoints> rewardPoints = new ArrayList<RewardPoints>();
 		rewardPointRepository.findAll().forEach(r -> rewardPoints.add(r));
 		return rewardPoints;
 	}
-	 
-	/*
-	 * // Get reward points for a specific customer public List<RewardPoints>
-	 * getRewardPointsByCustomer(Long cust_id) { return
-	 * rewardPointRepository.findByCustomerId(cust_id); }
-	 * 
-	 * // Get all reward points public List<RewardPoints> getAllRewardPoints() {
-	 * return rewardPointRepository.findAllRewardPoints(); }
-	 */
+	
 }
