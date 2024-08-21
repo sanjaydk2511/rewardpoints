@@ -61,7 +61,7 @@ public class CustomerRegistrationService {
 	    return false;
 	}
 
-	private boolean saveOrUpdatePasswordInTable1(CustomerRegistrationBean bean) { // table customer_registration
+	public boolean saveOrUpdatePasswordInTable1(CustomerRegistrationBean bean) { // table customer_registration
 	    // Create or update password entity for table 1
 		
 		CustomerRegistrationBean passwordEntity1 = new CustomerRegistrationBean();
@@ -78,7 +78,7 @@ public class CustomerRegistrationService {
 	    return true; // You may want to check if the save operation was successful
 	}
 
-	private boolean saveOrUpdatePasswordInTable2(CustomerRegistrationBean userBean) { //table users
+	public boolean saveOrUpdatePasswordInTable2(CustomerRegistrationBean userBean) { //table users
 	    // Create or update password entity for table 2
 		User passwordEntity2 = new User();
 		

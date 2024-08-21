@@ -15,22 +15,22 @@ public class CustomerRegistrationBean {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long cust_id;
 	
-	@Column
+	@Column(nullable = false)
 	private String cust_name;
 	
-	@Column
+	@Column(nullable = true)
 	private String contact;
 	
-	@Column
+	@Column(nullable = false, unique = true)
 	private String email;
 	
-	@Column
+	@Column(nullable = false, unique = true)
 	private String user_name;
 	
-	@Column
+	@Column(nullable = true)
 	private String password;
 	
-	@Column
+	@Column(nullable = true)
 	private String confirm_password;
 
 	public Long getCust_id() {

@@ -53,6 +53,7 @@ public class RewardsReportController {
     public ResponseEntity<byte[]> downloadExcel() throws IOException {
     	
     	try {
+    		
         List<RewardPoints> rewardsData = rewardPointService.getAllRewardPoints(); // Retrieve rewards points data from service
 
         // Create Excel workbook and sheet
