@@ -78,9 +78,9 @@ public class CustomerRegistrationService {
 	    return true; // You may want to check if the save operation was successful
 	}
 
-	public boolean saveOrUpdatePasswordInTable2(CustomerRegistrationBean userBean) { //table users
+	public boolean saveOrUpdatePasswordInTable2(CustomerRegistrationBean userBean) { 
 	    // Create or update password entity for table 2
-		User passwordEntity2 = new User();
+		User passwordEntity2 = new User(); //table users
 		
 	    passwordEntity2.setUsername(userBean.getUser_name());
 	    passwordEntity2.setPassword(userBean.getPassword()); // Assuming password is directly available
