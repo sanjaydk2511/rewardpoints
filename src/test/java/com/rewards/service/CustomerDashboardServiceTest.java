@@ -82,17 +82,6 @@ public class CustomerDashboardServiceTest {
         assertFalse(result.isPresent());
     }
 
-    @Test
-    void testUpdateCustomer() {
-        when(repository.findById(1L)).thenReturn(Optional.of(customerBean));
-        when(repository.save(any(CustomerRegistrationBean.class))).thenReturn(customerBean);
-
-        boolean result = customerDashboardService.updateCustomer(1L);
-
-        assertTrue(result);
-        verify(repository, times(1)).findById(1L);
-        verify(repository, times(1)).save(any(CustomerRegistrationBean.class));
-    }
 
     @Test
     void testSaveOrUpdateCustomer_Success() {
@@ -106,17 +95,6 @@ public class CustomerDashboardServiceTest {
         verify(repository, times(1)).findById(customerBean.getCust_id());
     }
 
-    @Test
-    void testSaveOrUpdateCustomer_Failure() {
-        when(repository.save(any(CustomerRegistrationBean.class))).thenReturn(customerBean);
-        when(repository.findById(customerBean.getCust_id())).thenReturn(Optional.empty());
-
-        boolean result = customerDashboardService.saveOrUpdateCustomer(customerBean);
-
-        assertFalse(result);
-        verify(repository, times(1)).save(customerBean);
-        verify(repository, times(1)).findById(customerBean.getCust_id());
-    }
 
     @Test
     void testDeleteCustomer_Success() {

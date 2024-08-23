@@ -44,10 +44,12 @@ public class RewardPointService {
 	public int calculatePoints(BigDecimal amount) {
 		int points = 0;
 		if (amount.compareTo(BigDecimal.valueOf(100)) > 0) {
-			BigDecimal above100 = amount.subtract(BigDecimal.valueOf(100));
-			points += above100.intValue() * 2; // 2 points per dollar above $100
-			amount = BigDecimal.valueOf(100);
-		}
+	        // Calculate points for amount above 100
+	        BigDecimal above100 = amount.subtract(BigDecimal.valueOf(100));
+	        points += above100.intValue() * 2;
+	        // Adjust amount to 100 for next calculation
+	        amount = BigDecimal.valueOf(100);
+	    }
 		if (amount.compareTo(BigDecimal.valueOf(50)) > 0) {
 			BigDecimal between50And100 = amount.subtract(BigDecimal.valueOf(50));
 			points += between50And100.intValue(); // 1 point per dollar between $50 and $100

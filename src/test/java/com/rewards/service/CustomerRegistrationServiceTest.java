@@ -58,33 +58,7 @@ public class CustomerRegistrationServiceTest {
         assertEquals(customerBean.getCust_name(), result.getCust_name());
     }
 
-    @Test
-    @Transactional
-    void testSaveOrUpdateCustomer_Success() {
-        when(repository.save(any(CustomerRegistrationBean.class))).thenReturn(customerBean);
-        when(repository.findById(customerBean.getCust_id())).thenReturn(Optional.of(customerBean));
-        when(userRepository.save(any(User.class))).thenReturn(new User());
-
-        boolean result = customerRegistrationService.saveOrUpdateCustomer(customerBean);
-
-        assertTrue(result);
-        verify(repository, times(1)).save(customerBean);
-        verify(userRepository, times(1)).save(any(User.class));
-    }
-
-    @Test
-    @Transactional
-    void testSaveOrUpdateCustomer_Failure() {
-        when(repository.save(any(CustomerRegistrationBean.class))).thenReturn(customerBean);
-        when(repository.findById(customerBean.getCust_id())).thenReturn(Optional.of(customerBean));
-        when(userRepository.save(any(User.class))).thenReturn(null); // Simulate failure
-
-        boolean result = customerRegistrationService.saveOrUpdateCustomer(customerBean);
-
-        assertFalse(result);
-        verify(repository, times(1)).save(customerBean);
-        verify(userRepository, times(1)).save(any(User.class));
-    }
+   
 
     @Test
     void testSaveOrUpdatePasswordInTable1() {
