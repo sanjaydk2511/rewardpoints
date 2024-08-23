@@ -7,8 +7,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.rewards.exception.RewardPointsException;
+import com.rewards.exception.TransactionNotFoundException;
 import com.rewards.model.CustomerRegistrationBean;
 import com.rewards.model.RewardPoints;
+import com.rewards.model.TransactionBean;
 import com.rewards.service.CustomerDashboardService;
 import com.rewards.service.RewardPointService;
 
@@ -17,6 +19,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+
+import javax.transaction.Transaction;
 
 @RestController
 @RequestMapping("/api/rewards")
@@ -102,7 +106,7 @@ public class RewardsController {
     @GetMapping("/allrewards")
     public ResponseEntity<?> getAllRewardPoints() {
     	
-    	  try {
+    	try {
     	ArrayList<RewardPoints> rewards = rewardPointService.getAllRewardPoints();
         if (rewards != null && !rewards.isEmpty()) {
             return ResponseEntity.ok(rewards);
@@ -113,5 +117,17 @@ public class RewardsController {
             logger.error("Error fetching reward points: {}", e.getMessage());
             throw new RewardPointsException("Failed to retrieve reward points.");
         }
+    }
+    
+    @GetMapping("/trasactionSummary/{cust_id}")
+    public ResponseEntity<?> getTransactionSummary(@PathVariable Long cust_id) {
+    	logger.debug("In getTransactionSummary " +cust_id);
+    	
+    	TransactionBean rewards =  rewardPointService.getTransactionSummary(cust_id);
+    	logger.debug("Cust id :  " +rewards.getCust_id());
+        if(rewards.getCust_id() ==null) {
+        	 throw new TransactionNotFoundException("Transaction summary not found for customer ID: " + cust_id);
+        }
+    	return ResponseEntity.ok(rewards);
     }
 }

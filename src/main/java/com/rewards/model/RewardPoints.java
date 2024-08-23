@@ -2,6 +2,7 @@ package com.rewards.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "reward_points")
@@ -36,6 +39,19 @@ public class RewardPoints {
     
     @Column(nullable = false, precision = 19, scale = 4, name="amount")
     private BigDecimal amount;
+    
+  
+    @Column(name = "transaction_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date transaction_date;
+    
+	public Date getTransaction_date() {
+		return transaction_date;
+	}
+
+	public void setTransaction_date(Date transaction_date) {
+		this.transaction_date = transaction_date;
+	}
 
 	public Long getId() {
 		return id;
@@ -84,7 +100,4 @@ public class RewardPoints {
 	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
 	}
-   
-
-	
 }
