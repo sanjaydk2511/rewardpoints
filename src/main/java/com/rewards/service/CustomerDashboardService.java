@@ -34,9 +34,7 @@ public class CustomerDashboardService {
 		 return repository.findById(cust_id).get();
 	}
 	
-	 public Optional<CustomerRegistrationBean> findCustomerById(Long id) {
-	        return repository.findById(id);
-	    }
+	
 	
 	 //Update Customer
 	public boolean updateCustomer(Long cust_id) {
@@ -54,6 +52,9 @@ public class CustomerDashboardService {
 		}
 		return false;
 	}
+	 public Optional<CustomerRegistrationBean> findCustomerById(Long id) {
+	        return repository.findById(id);
+	 }
 	
 	//delete specific customer
 	public boolean deleteCustomer(Long cust_id) {

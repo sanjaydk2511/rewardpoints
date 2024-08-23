@@ -71,7 +71,7 @@ public class CustomerRegistrationService {
 	    passwordEntity1.setEmail(bean.getEmail());
 	    passwordEntity1.setUser_name(bean.getUser_name());
 	    passwordEntity1.setPassword(bean.getPassword()); // Assuming password is directly available
-	    passwordEntity1.setConfirm_password(bean.getConfirm_password());
+	    //passwordEntity1.setConfirm_password(bean.getConfirm_password());
 	    
 	    // Save password entity to table 1
 	    repository.save(passwordEntity1);

@@ -41,16 +41,11 @@ public class CustomerRegistrationController {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         
         String password = customerBean.getPassword();
-        String confirmPassword = customerBean.getConfirm_password();
-        
         String encodedPassword = encoder.encode(password);
-        String encodedConfirmPassword = encoder.encode(confirmPassword);
-        
+         
         logger.debug("Encoded Password: " + encodedPassword); // necessary for debugging purpose
         
         customerBean.setPassword(encodedPassword);
-        customerBean.setConfirm_password(encodedConfirmPassword);
-        
         service.saveOrUpdateCustomer(customerBean);
         
         return ResponseEntity.ok("Customer registered successfully");
