@@ -106,20 +106,9 @@ public class RewardPointService {
         BigDecimal totalAmount = rewardPointRepository.findTotalTransactionAmountByCustomerId(cust_id);
         Integer totalPoints = rewardPointRepository.findTotalRewardPointsByCustomerId(cust_id);
         
-        List<TransactionBean> transactionDetails = new ArrayList<>();
-        
-        for (RewardPoints transaction : transactions) {
-        	TransactionBean dto = new TransactionBean();
-        	dto.setCust_id(transaction.getCust_id());
-            dto.setAmount(transaction.getAmount());
-            dto.setMonth(transaction.getMonth());
-  
-            transactionDetails.add(dto);
-        }
-        
         result.setCust_id(cust_id);
-        result.setAmount(totalAmount);
-        result.setPoints(totalPoints);
+        result.setTotalAmount(totalAmount);
+        result.setTotalPoints(totalPoints);
         result.setMonth(months.get(0));
         System.out.println(result);
 		return result;

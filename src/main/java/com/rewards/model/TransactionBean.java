@@ -5,8 +5,8 @@ import java.math.BigDecimal;
 public class TransactionBean {
 
 	private Long cust_id;
-    private BigDecimal amount;
-    private Integer points;
+    private BigDecimal totalAmount;
+    private Integer totalPoints;
     private int month;
     
 	
@@ -16,17 +16,18 @@ public class TransactionBean {
 	public void setCust_id(Long cust_id) {
 		this.cust_id = cust_id;
 	}
-	public BigDecimal getAmount() {
-		return amount;
+	
+	public BigDecimal getTotalAmount() {
+		return totalAmount;
 	}
-	public void setAmount(BigDecimal amount) {
-		this.amount = amount;
+	public void setTotalAmount(BigDecimal totalAmount) {
+		this.totalAmount = totalAmount;
 	}
-	public Integer getPoints() {
-		return points;
+	public Integer getTotalPoints() {
+		return totalPoints;
 	}
-	public void setPoints(Integer points) {
-		this.points = points;
+	public void setTotalPoints(Integer totalPoints) {
+		this.totalPoints = totalPoints;
 	}
 	public int getMonth() {
 		return month;
